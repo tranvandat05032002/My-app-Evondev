@@ -25,12 +25,30 @@ const SignUpFormHook = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {
+      errors,
+      isSubmitting,
+      isValid,
+      isDirty,
+      dirtyFields,
+      isSubmitSuccessful,
+    },
   } = useForm({
     resolver: yupResolver(validateSchema),
+    mode: "onChange",
   });
-  const onSubmit = (values) => {
-    alert(JSON.stringify(values));
+  console.log(isValid);
+  console.log(isDirty);
+  console.log(dirtyFields);
+  console.log(isSubmitSuccessful);
+  const onSubmit = (values, e) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values));
+        e.target.reset();
+        resolve();
+      }, 2000);
+    });
   };
 
   return (
@@ -84,8 +102,13 @@ const SignUpFormHook = () => {
         <button
           className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
           type="submit"
+          disabled={isSubmitting}
         >
-          Submit
+          {isSubmitting ? (
+            <div className="w-7 h-7 border-4 border-gray-200 rounded-full border-t-transparent animate-spin text-center mx-auto"></div>
+          ) : (
+            " Submit"
+          )}
         </button>
       </form>
     </div>
