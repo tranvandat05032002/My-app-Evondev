@@ -1,16 +1,38 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 const SignUpFormHook = () => {
+  //react-hook-form
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
+  // const onSubmit = (values) => console.log(values);
+
+  // Yup with react-hook-form
+  const validateSchema = Yup.object({
+    firstName: Yup.string()
+      .required("Please enter a your first name")
+      .max(20, "Must be than 20 character or less 20 character"),
+    lastName: Yup.string()
+      .required("Please enter a your last name")
+      .max(20, "Must be than 20 character or less 20 character"),
+    email: Yup.string().required("Not be empty email"),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (values) => console.log(values);
+  } = useForm({
+    resolver: yupResolver(validateSchema),
+  });
+  const onSubmit = (values) => {
+    alert(JSON.stringify(values));
+  };
 
-  console.log(register());
-  console.log(errors);
   return (
     <div>
       <h1 className="text-center my-7 font-bold text-3xl">Register Form</h1>
@@ -29,13 +51,8 @@ const SignUpFormHook = () => {
             className="border border-gray-400 p-4 rounded-md"
             {...register("firstName", { required: true, maxLength: 20 })}
           />
-          {errors?.firstName?.type === "required" && (
-            <p className="text-sm text-red-500">Please enter your firstName</p>
-          )}
-          {errors?.firstName?.type === "maxLength" && (
-            <p className="text-sm text-red-500">
-              Must be than 20 character or less
-            </p>
+          {errors?.firstName?.message && (
+            <p className="text-sm text-red-500">{errors.firstName.message}</p>
           )}
         </div>
 
@@ -48,13 +65,8 @@ const SignUpFormHook = () => {
             {...register("lastName", { required: true, maxLength: 20 })}
           />
 
-          {errors?.lastName?.type === "required" && (
-            <p className="text-sm text-red-500">Please enter your lastName</p>
-          )}
-          {errors?.lastName?.type === "maxLength" && (
-            <p className="text-sm text-red-500">
-              Must be than 20 character or less
-            </p>
+          {errors?.lastName?.message && (
+            <p className="text-sm text-red-500">{errors.lastName.message}</p>
           )}
         </div>
         <div className="flex flex-col gap-2 mb-5">
@@ -65,8 +77,8 @@ const SignUpFormHook = () => {
             className="border border-gray-400 p-4 rounded-md"
             {...register("email", { required: true })}
           />
-          {errors?.email?.type && (
-            <p className="text-sm text-red-500">Please enter your email</p>
+          {errors?.email?.message && (
+            <p className="text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
         <button
