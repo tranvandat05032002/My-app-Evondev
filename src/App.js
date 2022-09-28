@@ -1,9 +1,9 @@
 import "./App.css";
-import SignUpFormHook from "./component/Form/SignUpFormHook";
+import SignUpFormHookController from "./component/Form/SignUpFormHookController";
 function App() {
   return (
     <div>
-      <SignUpFormHook></SignUpFormHook>
+      <SignUpFormHookController></SignUpFormHookController>
     </div>
   );
 }
