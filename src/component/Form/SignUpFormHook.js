@@ -34,6 +34,8 @@ const SignUpFormHook = () => {
       isSubmitSuccessful,
     },
     watch,
+    reset,
+    resetField,
   } = useForm({
     resolver: yupResolver(validateSchema),
     mode: "onChange",
@@ -41,18 +43,31 @@ const SignUpFormHook = () => {
   // method watch
   const watchShowAge = watch("showAge", false);
   // method different
-  console.log(isValid);
+  console.log("is valid", isValid);
   console.log(isDirty);
   console.log(dirtyFields);
   console.log(isSubmitSuccessful);
-  const onSubmit = (values, e) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values));
-        e.target.reset();
-        resolve();
-      }, 2000);
-    });
+
+  // const onSubmit = (values, e) => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       alert(JSON.stringify(values));
+  //       e.target.reset();
+  //       resolve();
+  //     }, 2000);
+  //   });
+  // };
+  const onSubmit = (values) => {
+    if (isValid) {
+      console.log("send data to backend");
+      reset({
+        firstName: "",
+        lastName: "",
+        email: "",
+      });
+    }
+
+    alert(JSON.stringify(values));
   };
 
   return (
@@ -118,7 +133,7 @@ const SignUpFormHook = () => {
         </div>
 
         <button
-          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
+          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white mb-3"
           type="submit"
           disabled={isSubmitting}
         >
@@ -127,6 +142,17 @@ const SignUpFormHook = () => {
           ) : (
             " Submit"
           )}
+        </button>
+
+        <button
+          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
+          onClick={() => {
+            resetField("firstName");
+            resetField("lastName");
+            resetField("email");
+          }}
+        >
+          reset
         </button>
       </form>
     </div>
