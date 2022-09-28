@@ -33,14 +33,18 @@ const SignUpFormHook = () => {
       dirtyFields,
       isSubmitSuccessful,
     },
+    watch,
   } = useForm({
     resolver: yupResolver(validateSchema),
     mode: "onChange",
   });
-  // console.log(isValid);
-  // console.log(isDirty);
-  // console.log(dirtyFields);
-  // console.log(isSubmitSuccessful);
+  // method watch
+  const watchShowAge = watch("showAge", false);
+  // method different
+  console.log(isValid);
+  console.log(isDirty);
+  console.log(dirtyFields);
+  console.log(isSubmitSuccessful);
   const onSubmit = (values, e) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -99,6 +103,20 @@ const SignUpFormHook = () => {
             <p className="text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
+
+        <div className="gap-2 mb-5 flex flex-col items-start">
+          <input type="checkbox" {...register("showAge")} />
+
+          {watchShowAge && (
+            <input
+              type="number"
+              placeholder="Age"
+              className="border border-gray-300 px-2 py-1"
+              {...register("age", { min: 50 })}
+            />
+          )}
+        </div>
+
         <button
           className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
           type="submit"
