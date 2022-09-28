@@ -37,10 +37,10 @@ const SignUpFormHook = () => {
     resolver: yupResolver(validateSchema),
     mode: "onChange",
   });
-  console.log(isValid);
-  console.log(isDirty);
-  console.log(dirtyFields);
-  console.log(isSubmitSuccessful);
+  // console.log(isValid);
+  // console.log(isDirty);
+  // console.log(dirtyFields);
+  // console.log(isSubmitSuccessful);
   const onSubmit = (values, e) => {
     return new Promise((resolve) => {
       setTimeout(() => {
