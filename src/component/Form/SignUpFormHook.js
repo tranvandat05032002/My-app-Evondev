@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useEffect } from "react";
 
 const SignUpFormHook = () => {
   //react-hook-form
@@ -36,12 +37,25 @@ const SignUpFormHook = () => {
     watch,
     reset,
     resetField,
+    setFocus,
+    setValue,
   } = useForm({
     resolver: yupResolver(validateSchema),
     mode: "onChange",
   });
   // method watch
   const watchShowAge = watch("showAge", false);
+  // setFocus
+  useEffect(() => {
+    setFocus("firstName");
+  }, [setFocus]);
+  //set values
+  const handleSetValue = () => {
+    setValue("firstName", "Tran");
+    setValue("lastName", "VanDat");
+    setValue("email", "tranvandat@gamil.com");
+    setValue("age", 20);
+  };
   // method different
   console.log("is valid", isValid);
   console.log(isDirty);
@@ -133,7 +147,7 @@ const SignUpFormHook = () => {
         </div>
 
         <button
-          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white mb-3"
+          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
           type="submit"
           disabled={isSubmitting}
         >
@@ -145,14 +159,21 @@ const SignUpFormHook = () => {
         </button>
 
         <button
-          className="p-4 bg-blue-500 font-normal w-full rounded-lg text-white"
+          className="p-4 bg-orange-500 font-normal w-full rounded-lg text-white my-3"
           onClick={() => {
             resetField("firstName");
             resetField("lastName");
             resetField("email");
           }}
         >
-          reset
+          reset all values
+        </button>
+
+        <button
+          className="bg-green-400 text-white px-3 py-2 rounded-lg"
+          onClick={handleSetValue}
+        >
+          setValue
         </button>
       </form>
     </div>
