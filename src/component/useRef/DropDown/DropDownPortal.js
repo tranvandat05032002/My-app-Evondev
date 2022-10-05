@@ -39,13 +39,12 @@ const DropDownPortal = () => {
 };
 
 const DropDownList = ({ coords }) => {
-  console.log(coords);
   if (typeof document === "undefined") return null;
   return ReactDOM.createPortal(
     <div
       className="absolute left-0 w-full bg-white border border-gray-200 rounded-lg top-full"
       style={{
-        top: coords.top + coords.height,
+        top: coords.top + coords.height + window.scrollY,
         width: coords.width,
         left: coords.left,
       }}
