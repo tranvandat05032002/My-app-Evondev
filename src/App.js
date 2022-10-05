@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import "./App.css";
 
 import Modal from "./component/modal/Modal";
+import DropDownPortal from "./component/useRef/DropDown/DropDownPortal";
 function App() {
   const [showModal, setShowModal] = useState(false);
   return (
@@ -29,6 +30,8 @@ function App() {
       >
         Show modal
       </button>
+
+      <DropDownPortal></DropDownPortal>
     </Fragment>
   );
 }
