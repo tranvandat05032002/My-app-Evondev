@@ -1,13 +1,14 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import "./App.css";
+import ComponentTooltip from "./component/tooltip/ComponentTooltip";
 
-import Modal from "./component/modal/Modal";
-import DropDownPortal from "./component/useRef/DropDown/DropDownPortal";
+// import Modal from "./component/modal/Modal";
+// import DropDownPortal from "./component/useRef/DropDown/DropDownPortal";
 function App() {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   return (
     <Fragment>
-      <div className="relative z-30">
+      {/* <div className="relative z-30">
         <div>
           <Modal
             open={showModal}
@@ -31,7 +32,8 @@ function App() {
         Show modal
       </button>
 
-      <DropDownPortal></DropDownPortal>
+      <DropDownPortal></DropDownPortal> */}
+      <ComponentTooltip></ComponentTooltip>
     </Fragment>
   );
 }
