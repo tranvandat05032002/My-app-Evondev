@@ -1,9 +1,20 @@
 import { Fragment } from "react";
 import "./App.css";
-import ComponentTooltip from "./component/tooltip/ComponentTooltip";
+// import ComponentTooltip from "./component/tooltip/ComponentTooltip";
+import Game from "./component/tictactoe/Game";
+import { ErrorBoundary } from "react-error-boundary";
 
 // import Modal from "./component/modal/Modal";
 // import DropDownPortal from "./component/useRef/DropDown/DropDownPortal";
+function ErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
 function App() {
   // const [showModal, setShowModal] = useState(false);
   return (
@@ -33,7 +44,11 @@ function App() {
       </button>
 
       <DropDownPortal></DropDownPortal> */}
-      <ComponentTooltip></ComponentTooltip>
+      {/* <ComponentTooltip></ComponentTooltip> */}
+
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Game></Game>
+      </ErrorBoundary>
     </Fragment>
   );
 }
