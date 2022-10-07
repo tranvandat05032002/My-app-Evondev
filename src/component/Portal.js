@@ -16,7 +16,7 @@ const Portal = ({
   containerStyles = {},
   bodyClassName = "",
   bodyStyles = {},
-  visible = false,
+  overlay = true,
   onClose = () => {},
   children,
 }) => {
@@ -24,18 +24,14 @@ const Portal = ({
     document.body.appendChild(portalWrapperElement);
   }, []);
   const renderContent = (
-    <div
-      className={`fixed inset-0 z-[9999] ${contentClassName}`}
-      style={containerStyles}
-    >
-      <div
-        className="absolute inset-0 bg-black overlay bg-opacity-20"
-        onClick={onClose}
-      ></div>
-      <div
-        className={`relative z-10 content ${bodyClassName} `}
-        style={bodyStyles}
-      >
+    <div className={contentClassName} style={containerStyles}>
+      {overlay && (
+        <div
+          className="absolute inset-0 bg-black overlay bg-opacity-20"
+          onClick={onClose}
+        ></div>
+      )}
+      <div className={bodyClassName} style={bodyStyles}>
         {children}
       </div>
     </div>
@@ -45,10 +41,10 @@ const Portal = ({
 
 Portal.propTypes = {
   contentClassName: PropTypes.string,
-  containerStyles: PropTypes.string,
-  bodyClassName: PropTypes.object,
+  containerStyles: PropTypes.object,
+  bodyClassName: PropTypes.string,
   bodyStyles: PropTypes.object,
-  visible: PropTypes.bool,
+  overlay: PropTypes.bool,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };

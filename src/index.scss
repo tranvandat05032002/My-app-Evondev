@@ -48,3 +48,16 @@ body {
   transform: scale(0.9);
   transition: opacity 300ms, transform 300ms;
 }
+// fade
+.fade-enter .tooltip {
+  opacity: 0;
+}
+.fade-enter-active .tooltip {
+  opacity: 1;
+}
+.fade-exit .tooltip {
+  opacity: 1;
+}
+.fade-exit-active .tooltip {
+  opacity: 0;
+}
