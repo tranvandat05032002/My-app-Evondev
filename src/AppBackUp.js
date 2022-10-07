@@ -15,7 +15,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
     </div>
   );
 }
-function App() {
+function AppBackUp() {
   // const [showModal, setShowModal] = useState(false);
   return (
     <Fragment>
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppBackUp;

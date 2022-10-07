@@ -25,18 +25,18 @@ const Portal = ({
   }, []);
   const renderContent = (
     <div
-      className={`fixed inset-0 z-[9999] ${contentClassName} ${
-        visible ? "" : "opacity-0 invisible"
-      }`}
+      className={`fixed inset-0 z-[9999] ${contentClassName}`}
       style={containerStyles}
     >
       <div
         className="absolute inset-0 bg-black overlay bg-opacity-20"
         onClick={onClose}
+      ></div>
+      <div
+        className={`relative z-10 content ${bodyClassName} `}
+        style={bodyStyles}
       >
-        <div className={`relative z-10 ${bodyClassName} `} style={bodyStyles}>
-          {children}
-        </div>
+        {children}
       </div>
     </div>
   );
