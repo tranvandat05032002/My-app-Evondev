@@ -5,7 +5,7 @@ const HeaderMain = () => {
   const { user, setUser } = useAuth();
   console.log(user);
   return (
-    <div className="flex items-center justify-center p-8 bg-white shadow-md">
+    <div className="flex items-center justify-center p-3 bg-white shadow-md">
       {user ? (
         <div className="flex items-center gap-x-2">
           <img

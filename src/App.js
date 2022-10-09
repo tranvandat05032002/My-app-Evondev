@@ -2,6 +2,8 @@ import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
 import HeaderMain from "./component/AuthContext/HeaderMain";
 import { AuthProvider } from "./contexts/auth-context";
+import { GalleryProvider } from "./contexts/gallery-context";
+import PhotoList from "./component/gallery/PhotoList";
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div role="alert">
@@ -16,7 +18,10 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <AuthProvider>
-        <HeaderMain></HeaderMain>
+        <GalleryProvider>
+          <HeaderMain></HeaderMain>
+          <PhotoList></PhotoList>
+        </GalleryProvider>
       </AuthProvider>
     </ErrorBoundary>
   );
