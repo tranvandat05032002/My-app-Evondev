@@ -4,6 +4,7 @@ import HeaderMain from "./component/AuthContext/HeaderMain";
 import { AuthProvider } from "./contexts/auth-context";
 import { GalleryProvider } from "./contexts/gallery-context";
 import PhotoList from "./component/gallery/PhotoList";
+import CartList from "./component/gallery/CartList";
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div role="alert">
@@ -21,6 +22,7 @@ function App() {
         <GalleryProvider>
           <HeaderMain></HeaderMain>
           <PhotoList></PhotoList>
+          <CartList></CartList>
         </GalleryProvider>
       </AuthProvider>
     </ErrorBoundary>

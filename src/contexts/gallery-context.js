@@ -59,7 +59,7 @@ const GalleryProvider = (props) => {
   const addToCart = (newItem) => {
     setCardItems((prevItems) => {
       const isExited = prevItems.some((item) => newItem.id === item.id);
-      console.log("SetCart", isExited);
+      // console.log("SetCart", isExited);
 
       if (isExited) {
         setCardItems([...prevItems]);
@@ -68,6 +68,13 @@ const GalleryProvider = (props) => {
         setCardItems([...prevItems, newItem]);
         return [...prevItems, newItem];
       }
+    });
+  };
+  const removeCart = (photoID) => {
+    setCardItems((prevItems) => {
+      const result = prevItems.filter((item) => item.id !== photoID);
+      setCardItems(result);
+      return result;
     });
   };
   const value = {
@@ -79,6 +86,7 @@ const GalleryProvider = (props) => {
     setFavoriteList,
     toggleFavorite,
     addToCart,
+    removeCart,
   };
   return (
     <GalleryContext.Provider value={value} {...props}></GalleryContext.Provider>
