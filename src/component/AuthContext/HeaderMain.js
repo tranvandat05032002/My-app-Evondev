@@ -3,7 +3,6 @@ import { useAuth } from "../../contexts/auth-context";
 
 const HeaderMain = () => {
   const { user, setUser } = useAuth();
-  console.log(user);
   return (
     <div className="flex items-center justify-center p-3 bg-white shadow-md">
       {user ? (

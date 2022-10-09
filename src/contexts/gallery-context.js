@@ -56,6 +56,20 @@ const GalleryProvider = (props) => {
     });
     setPhotos(updateArray);
   };
+  const addToCart = (newItem) => {
+    setCardItems((prevItems) => {
+      const isExited = prevItems.some((item) => newItem.id === item.id);
+      console.log("SetCart", isExited);
+
+      if (isExited) {
+        setCardItems([...prevItems]);
+        return [...prevItems];
+      } else {
+        setCardItems([...prevItems, newItem]);
+        return [...prevItems, newItem];
+      }
+    });
+  };
   const value = {
     photos,
     setPhotos,
@@ -64,6 +78,7 @@ const GalleryProvider = (props) => {
     favoriteList,
     setFavoriteList,
     toggleFavorite,
+    addToCart,
   };
   return (
     <GalleryContext.Provider value={value} {...props}></GalleryContext.Provider>

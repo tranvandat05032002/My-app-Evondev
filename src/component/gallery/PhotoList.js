@@ -18,7 +18,8 @@ const PhotoList = () => {
 
 // CardItem of photoList
 const PhotoItem = ({ info: { url, id, isFavorite } }) => {
-  const { toggleFavorite } = useGallery();
+  const { toggleFavorite, addToCart } = useGallery();
+  const item = { id, url, isFavorite };
   return (
     <div className="relative cursor-pointer group">
       <img src={url} alt="" className="object-cover w-full h-full" />
@@ -56,7 +57,12 @@ const PhotoItem = ({ info: { url, id, isFavorite } }) => {
           </svg>
         )}
       </span>
-      <button className="absolute invisible px-6 py-3 text-sm font-medium transition-all bg-white rounded-lg opacity-0 group-btn bottom-5 left-2/4 -translate-x-2/4 group-hover:opacity-100 group-hover:visible">
+      <button
+        className="absolute invisible px-6 py-3 text-sm font-medium transition-all bg-white rounded-lg opacity-0 group-btn bottom-5 left-2/4 -translate-x-2/4 group-hover:opacity-100 group-hover:visible"
+        onClick={() => {
+          addToCart(item);
+        }}
+      >
         Add to cart
       </button>
     </div>
