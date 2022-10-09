@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import useLocalStorage from "../component/hooks/useLocalStorage";
 
 const GalleryContext = createContext();
 
@@ -44,8 +45,16 @@ const useGallery = () => {
 };
 
 const GalleryProvider = (props) => {
-  const [photos, setPhotos] = useState(fakeData);
-  const [cardItems, setCardItems] = useState([]);
+  //local storage
+  const { storedValue, setValue } = useLocalStorage("listCard", fakeData);
+  const { storedValue: storedCart, setValue: setStoredCart } = useLocalStorage(
+    "listCartItems",
+    []
+  );
+  //Hook state
+  const [photos, setPhotos] = useState(storedValue);
+  console.log(photos);
+  const [cardItems, setCardItems] = useState(storedCart);
   const [favoriteList, setFavoriteList] = useState([]);
   const toggleFavorite = (photoID) => {
     const updateArray = photos.map((photo) => {
@@ -55,17 +64,19 @@ const GalleryProvider = (props) => {
       return photo;
     });
     setPhotos(updateArray);
+    setValue(updateArray);
   };
   const addToCart = (newItem) => {
     setCardItems((prevItems) => {
       const isExited = prevItems.some((item) => newItem.id === item.id);
-      // console.log("SetCart", isExited);
 
       if (isExited) {
-        setCardItems([...prevItems]);
+        // setCardItems([...prevItems]);
+        setStoredCart([...prevItems]);
         return [...prevItems];
       } else {
-        setCardItems([...prevItems, newItem]);
+        // setCardItems([...prevItems, newItem]);
+        setStoredCart([...prevItems, newItem]);
         return [...prevItems, newItem];
       }
     });
@@ -73,7 +84,8 @@ const GalleryProvider = (props) => {
   const removeCart = (photoID) => {
     setCardItems((prevItems) => {
       const result = prevItems.filter((item) => item.id !== photoID);
-      setCardItems(result);
+      // setCardItems(result);
+      setStoredCart(result);
       return result;
     });
   };

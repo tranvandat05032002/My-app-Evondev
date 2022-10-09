@@ -3,7 +3,6 @@ import { useGallery } from "../../contexts/gallery-context";
 
 const CartList = () => {
   const { cardItems, removeCart } = useGallery();
-  console.log(cardItems);
   return (
     <div>
       <p>Cart</p>
