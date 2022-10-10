@@ -1,31 +1,29 @@
 import "./App.css";
-import { ErrorBoundary } from "react-error-boundary";
-import HeaderMain from "./component/AuthContext/HeaderMain";
-import { AuthProvider } from "./contexts/auth-context";
-import { GalleryProvider } from "./contexts/gallery-context";
-import PhotoList from "./component/gallery/PhotoList";
-import CartList from "./component/gallery/CartList";
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
+import Nav from "./Nav";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import Profile from "./Profile";
+import Contact from "./Contact";
+import Blog from "./Blog";
+import BlogPageDetail from "./BlogPageDetail";
 
 function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <AuthProvider>
-        <GalleryProvider>
-          <HeaderMain></HeaderMain>
-          <PhotoList></PhotoList>
-          <CartList></CartList>
-        </GalleryProvider>
-      </AuthProvider>
-    </ErrorBoundary>
+    <div>
+      <Routes>
+        <Route path="/" element={<Nav></Nav>}>
+          <Route path="/home" element={<Home></Home>}></Route>
+          <Route path="/profile" element={<Profile></Profile>}></Route>
+          <Route path="/contact" element={<Contact></Contact>}></Route>
+          <Route path="/blog" element={<Blog></Blog>}></Route>
+          <Route
+            path="/blog/:slug"
+            element={<BlogPageDetail></BlogPageDetail>}
+          ></Route>
+        </Route>
+        <Route path="*" element={<h1>Error 404!</h1>}></Route>
+      </Routes>
+    </div>
   );
 }
 export default App;
