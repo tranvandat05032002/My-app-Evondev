@@ -1,15 +1,18 @@
 import React from "react";
-import withLoadingAdvenced from "./withLoadingAdvenced";
+import withAPIHackerNews from "./withAPIHackerNews";
 
 const FetchingData = ({ data }) => {
   console.log(data);
   return (
     <div>
       {data.map((item) => (
-        <div key={item}>{item}</div>
+        <div key={item.objectID}> {item.title}</div>
       ))}
     </div>
   );
 };
 
-export default withLoadingAdvenced(FetchingData);
+export default withAPIHackerNews(
+  FetchingData,
+  `https://hn.algolia.com/api/v1/search?query=react`
+);
