@@ -65,7 +65,7 @@ const MovieItemSkeleton = () => {
           radius="16px"
         ></LoadingSkeleton>
       </div>
-      <div className="p-10 flex flex-1 flex-col">
+      <div className="flex flex-col flex-1 p-10">
         <h3 className="text-[#333] text-base font-semibold mb-4">
           <LoadingSkeleton height="20px"></LoadingSkeleton>
         </h3>
@@ -114,10 +114,10 @@ const MovieItem = ({ data }) => {
               : "wwemzKWzjKYJFfCeiB57q3r4Bcm.png"
           }`}
           alt=""
-          className="w-full h-full rounded-lg object-cover"
+          className="object-cover w-full h-full rounded-lg"
         />
       </div>
-      <div className="p-10 flex flex-1 flex-col">
+      <div className="flex flex-col flex-1 p-10">
         <h3 className="text-[#333] text-base font-semibold mb-4">
           {data.title}
         </h3>
