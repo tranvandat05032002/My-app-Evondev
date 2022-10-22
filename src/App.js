@@ -1,10 +1,11 @@
 import "./App.css";
-import FetchingData from "./component/advanced/hocs/FetchingData";
+import React from "react";
+import HandleValue from "./component/advanced/render-props/HandleValue";
 
 function App() {
   return (
     <div>
-      <FetchingData></FetchingData>
+      <HandleValue></HandleValue>
     </div>
   );
 }
