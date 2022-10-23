@@ -11,13 +11,14 @@ function useCounter() {
 }
 
 function CounterProvider({ value, ...props }) {
-  const { count, setCount } = useCounter();
-  const values = { count, setCount, value };
+  console.log(
+    "🚀 ~ file: counter-context.js ~ line 14 ~ CounterProvider ~ props",
+    props
+  );
+  //   const { count, setCount } = useCounter();
+  //   const values = { value };
   return (
-    <CounterContext.Provider
-      value={values}
-      {...props}
-    ></CounterContext.Provider>
+    <CounterContext.Provider value={value} {...props}></CounterContext.Provider>
   );
 }
 function useCount() {

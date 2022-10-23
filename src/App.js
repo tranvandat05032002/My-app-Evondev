@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import Counter from "./component/advanced/control-props/Counter";
+import OutSideOnchange from "./component/advanced/control-props/OutSideOnchange";
 
 function App() {
   return (
     <div>
-      <Counter></Counter>
+      <OutSideOnchange></OutSideOnchange>
     </div>
   );
 }
