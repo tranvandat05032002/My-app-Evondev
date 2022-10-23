@@ -1,11 +1,13 @@
 import React from "react";
+import { useAccordion } from "./accordion-context";
 
 //specialized component
-const AccordionHeader = ({ show, handleToggleShow, children }) => {
+const AccordionHeader = ({ children }) => {
+  const { show, handleToggleShow } = useAccordion();
   return (
     <div
       onClick={handleToggleShow}
-      className="flex justify-between px-3 py-2 border border-gray-400 cursor-pointer header w-max"
+      className="flex items-center justify-between px-3 py-2 border border-gray-200 cursor-pointer header "
     >
       {children}
       <span className="ml-3">{show ? "-" : "+"}</span>

@@ -3,7 +3,7 @@ import Accordion from "./Accordion";
 
 const AccordionList = () => {
   return (
-    <div className="max-w-[600px] mt-5 mx-auto ">
+    <div className="max-w-[600px] mx-auto w-full mt-4 ">
       <Accordion header="Can i click Accordion ">
         <div>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores ad
