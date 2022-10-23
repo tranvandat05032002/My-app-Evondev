@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import AccordionList from "./component/advanced/react-composition/AccordionList";
+import SwitchRender from "./component/advanced/propCollection/SwitchRender";
 
 function App() {
   return (
     <div>
-      <AccordionList></AccordionList>
+      <SwitchRender></SwitchRender>
     </div>
   );
 }
