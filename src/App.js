@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import SwitchRender from "./component/advanced/propCollection/SwitchRender";
+import Counter from "./component/advanced/control-props/Counter";
 
 function App() {
   return (
     <div>
-      <SwitchRender></SwitchRender>
+      <Counter></Counter>
     </div>
   );
 }
