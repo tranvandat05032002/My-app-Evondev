@@ -1,11 +1,13 @@
 import "./App.css";
 import React from "react";
-import HandleValue from "./component/advanced/render-props/HandleValue";
+import Accordion from "./component/advanced/react-composition/Accordion";
+import Editable from "./component/advanced/react-composition/Editable";
 
 function App() {
   return (
     <div>
-      <HandleValue></HandleValue>
+      <Accordion></Accordion>
+      <Editable></Editable>
     </div>
   );
 }
