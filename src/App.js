@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import DropDown from "./component/advancedPattern/inversion-of-control/DropDown";
+import RenderDropDown from "./component/advancedPattern/inversion-of-control/RenderDropDown";
 
 function App() {
   return (
     <div>
-      <DropDown></DropDown>
+      <RenderDropDown></RenderDropDown>
     </div>
   );
 }
