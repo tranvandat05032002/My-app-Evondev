@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import OutSideOnchange from "./component/advancedPattern/control-props/OutSideOnchange";
+import OutSideOnchange from "./component/advancedPattern/stateReducer/OutSideOnchange";
 
 function App() {
   return (

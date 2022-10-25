@@ -11,7 +11,7 @@ const counterReducer = ({ count }, { type }) => {
         count: count - 1,
       };
     default:
-      break;
+      throw new Error(`Unhandled action type ${type}`);
   }
 };
 export default function useCounter(
@@ -31,3 +31,5 @@ export default function useCounter(
     handleDecrement,
   };
 }
+
+useCounter.reducer = counterReducer;
