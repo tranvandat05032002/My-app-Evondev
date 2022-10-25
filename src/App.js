@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import OutSideOnchange from "./component/advancedPattern/stateReducer/OutSideOnchange";
+import DropDown from "./component/advancedPattern/inversion-of-control/DropDown";
 
 function App() {
   return (
     <div>
-      <OutSideOnchange></OutSideOnchange>
+      <DropDown></DropDown>
     </div>
   );
 }
