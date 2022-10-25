@@ -21,16 +21,7 @@ const options = [
 ];
 
 const RenderDropDown = () => {
-  return (
-    <DropDown
-      options={options}
-      placeholder="Select your job"
-      inputPlaceholder={"Search your job"}
-      visibleIconChecked={false}
-      visibleSearch
-      onChange
-    ></DropDown>
-  );
+  return <DropDown placeholder="Select an options"></DropDown>;
 };
 
 export default RenderDropDown;
