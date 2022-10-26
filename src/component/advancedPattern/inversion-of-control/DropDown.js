@@ -1,14 +1,13 @@
 import React from "react";
-import { useState } from "react";
 import { DropDownProvider } from "./dropdown-context";
 
 const DropDown = ({
-  options,
   placeholder = "Please select an options",
   children,
+  show,
+  setShow,
   ...props
 }) => {
-  const [show, setShow] = useState(false);
   const handleToggleDropDown = () => {
     setShow(!show);
   };
@@ -22,7 +21,7 @@ const DropDown = ({
           {placeholder}
         </div>
       </div>
-      {children}
+      {show && children}
     </DropDownProvider>
   );
 };
