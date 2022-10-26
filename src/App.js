@@ -1,8 +1,8 @@
 import "./App.css";
 import React from "react";
-import RenderDropDown from "./component/advancedPattern/inversion-of-control/RenderDropDown";
+import RenderCounter from "./component/advancedPattern/performance/RenderCounter";
 
 function App() {
-  return <RenderDropDown></RenderDropDown>;
+  return <RenderCounter></RenderCounter>;
 }
 export default App;
