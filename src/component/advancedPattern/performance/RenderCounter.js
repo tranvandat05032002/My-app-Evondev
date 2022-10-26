@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMemo } from "react";
 import { useCallback } from "react";
 import { useRef } from "react";
 import Counter from "./Counter";
@@ -10,7 +11,8 @@ const RenderCounter = () => {
   //   const calculator = () => {
   //     setFilter("");
   //   };
-  const calculator = useCallback(() => setFilter(""), [setFilter]);
+  //   const calculator = useCallback(() => setFilter(""), [setFilter]);
+  const calculator = useMemo(() => setFilter(""), [setFilter]);
 
   return (
     <div className="p-4">
