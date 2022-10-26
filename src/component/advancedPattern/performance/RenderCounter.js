@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useCallback } from "react";
 import { useRef } from "react";
 import Counter from "./Counter";
 // React.memo(Component)
@@ -9,6 +10,7 @@ const RenderCounter = () => {
   //   const calculator = () => {
   //     setFilter("");
   //   };
+  const calculator = useCallback(() => setFilter(""), [setFilter]);
 
   return (
     <div className="p-4">
@@ -19,7 +21,7 @@ const RenderCounter = () => {
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
-      <Counter></Counter>
+      <Counter calculator={calculator}></Counter>
     </div>
   );
 };
