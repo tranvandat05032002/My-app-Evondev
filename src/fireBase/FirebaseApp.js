@@ -5,6 +5,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { useState } from "react";
@@ -12,22 +13,40 @@ const FirebaseApp = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [postID, setPostID] = useState("");
+  const [posts, setPosts] = useState([]);
+  console.log(
+    "🚀 ~ file: FirebaseApp.js ~ line 16 ~ FirebaseApp ~ posts",
+    posts
+  );
   const colRef = collection(db, "posts");
   useEffect(() => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        let post = [];
-        snapshot.docs.forEach((doc) => {
-          post.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+    // 1.
+    // getDocs(colRef)
+    //   .then((snapshot) => {
+    //     let post = [];
+    //     snapshot.docs.forEach((doc) => {
+    //       post.push({
+    //         id: doc.id,
+    //         ...doc.data(),
+    //       });
+    //     });
+    //     setPosts(post);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // 2. get document in realtime method snapshot of fireStore
+    onSnapshot(colRef, (snapShot) => {
+      let post = [];
+      snapShot.docs.forEach((doc) => {
+        post.push({
+          id: doc.id,
+          ...doc.data(),
         });
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  });
+      setPosts(post);
+    });
+  }, []);
 
   const handleAddPost = async (e) => {
     e.preventDefault();
@@ -90,6 +109,16 @@ const FirebaseApp = () => {
             Remove post
           </button>
         </form>
+      </div>
+
+      <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5 mt-10">
+        {posts.length > 0 &&
+          posts.map((post) => (
+            <div className="" key={post.id}>
+              <span className="text-red-300">{post.author}: </span>
+              <span>{post.title}</span>
+            </div>
+          ))}
       </div>
     </div>
   );
