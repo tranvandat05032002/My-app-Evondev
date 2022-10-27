@@ -1,8 +1,12 @@
 import "./App.css";
 import React from "react";
-import RenderCounter from "./component/advancedPattern/performance/RenderCounter";
+import FirebaseApp from "./fireBase/FirebaseApp";
 
 function App() {
-  return <RenderCounter></RenderCounter>;
+  return (
+    <div>
+      <FirebaseApp></FirebaseApp>
+    </div>
+  );
 }
 export default App;
