@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "./firebase-config";
 import { useState } from "react";
 const FirebaseApp = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [postID, setPostID] = useState("");
   const colRef = collection(db, "posts");
   useEffect(() => {
     getDocs(colRef)
@@ -22,18 +29,24 @@ const FirebaseApp = () => {
       });
   });
 
-  const handleAddPost = (e) => {
+  const handleAddPost = async (e) => {
     e.preventDefault();
-    addDoc(colRef, {
+    await addDoc(colRef, {
       title,
       author,
-    })
-      .then((success) => {
-        console.log("SuccessFully");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+    //   .then((success) => {
+    //     console.log("SuccessFully");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+  const handleRemovePost = async (e) => {
+    e.preventDefault();
+    const colRefRemove = doc(db, "posts", postID);
+    await deleteDoc(colRefRemove);
+    console.log("Success remove");
   };
   return (
     <div className="p-10">
@@ -58,6 +71,23 @@ const FirebaseApp = () => {
             className="w-full p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
           >
             Add post
+          </button>
+        </form>
+      </div>
+      <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5 mt-10">
+        <form onSubmit={handleRemovePost}>
+          <input
+            type="text"
+            placeholder="Enter your ID"
+            className="w-full p-3 mb-5 border border-gray-200 rounded outline-none focus:border-blue-200"
+            name="postID"
+            onChange={(e) => setPostID(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="w-full p-3 text-sm font-medium text-white bg-red-400 rounded-lg"
+          >
+            Remove post
           </button>
         </form>
       </div>
