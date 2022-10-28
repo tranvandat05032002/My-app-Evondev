@@ -13,14 +13,23 @@ const FirebaseAuth = () => {
     email: "",
     password: "",
   });
+  const [userInfo, setUserInfo] = React.useState("");
   const handleChangeValues = (e) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
   };
-  const handleCreateUser = (e) => {
+  const handleCreateUser = async (e) => {
     e.preventDefault();
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    if (user) setUserInfo(user);
+    console.log("handleCreateUser", user);
+    console.log("Create user success fully");
   };
   return (
     <div className="p-10">
