@@ -6,6 +6,8 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { useState } from "react";
@@ -14,10 +16,8 @@ const FirebaseApp = () => {
   const [author, setAuthor] = useState("");
   const [postID, setPostID] = useState("");
   const [posts, setPosts] = useState([]);
-  console.log(
-    "🚀 ~ file: FirebaseApp.js ~ line 16 ~ FirebaseApp ~ posts",
-    posts
-  );
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateAuthor, setUpdateAuthor] = useState("");
   const colRef = collection(db, "posts");
   useEffect(() => {
     // 1.
@@ -53,6 +53,7 @@ const FirebaseApp = () => {
     await addDoc(colRef, {
       title,
       author,
+      createdAt: serverTimestamp(),
     });
     //   .then((success) => {
     //     console.log("SuccessFully");
@@ -66,6 +67,15 @@ const FirebaseApp = () => {
     const colRefRemove = doc(db, "posts", postID);
     await deleteDoc(colRefRemove);
     console.log("Success remove");
+  };
+  const handleUpdatePost = async (e) => {
+    e.preventDefault();
+    const colRefUpdate = doc(db, "posts", postID);
+    await updateDoc(colRefUpdate, {
+      title: updateTitle,
+      author: updateAuthor,
+    });
+    console.log("Update success");
   };
   return (
     <div className="p-10">
@@ -110,7 +120,30 @@ const FirebaseApp = () => {
           </button>
         </form>
       </div>
-
+      <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5">
+        <form onSubmit={handleUpdatePost}>
+          <input
+            type="text"
+            placeholder="Enter your title update"
+            className="w-full p-3 mb-5 border border-gray-200 rounded outline-none focus:border-blue-200"
+            name="title"
+            onChange={(e) => setUpdateTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Enter your new author"
+            className="w-full p-3 mb-5 border border-gray-200 rounded outline-none focus:border-blue-200"
+            name="author"
+            onChange={(e) => setUpdateAuthor(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="w-full p-3 text-sm font-medium text-white bg-orange-400 rounded-lg"
+          >
+            Update post
+          </button>
+        </form>
+      </div>
       <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5 mt-10">
         {posts.length > 0 &&
           posts.map((post) => (
