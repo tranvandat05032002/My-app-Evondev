@@ -4,6 +4,7 @@ import {
   signOut,
   signInWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth, db } from "./firebase-config";
 
@@ -13,6 +14,14 @@ const FirebaseAuth = () => {
     email: "",
     password: "",
   });
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      currentUser ? setUserInfo(currentUser) : setUserInfo("");
+    });
+  }, []);
+  const handleSignOut = () => {
+    signOut(auth);
+  };
   const [userInfo, setUserInfo] = React.useState("");
   const handleChangeValues = (e) => {
     setValues({
@@ -27,7 +36,6 @@ const FirebaseAuth = () => {
       values.email,
       values.password
     );
-    if (user) setUserInfo(user);
     console.log("handleCreateUser", user);
     console.log("Create user success fully");
   };
@@ -56,6 +64,15 @@ const FirebaseAuth = () => {
             Register
           </button>
         </form>
+        <div className="flex items-center mt-10 gap-x-5">
+          <span>{userInfo.email}</span>
+          <button
+            className="p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     </div>
   );
