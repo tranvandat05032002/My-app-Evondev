@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import FirebaseApp from "./fireBase/FirebaseApp";
+import FirebaseAuth from "./fireBase/FirebaseAuth";
 
 function App() {
   return (
     <div>
-      <FirebaseApp></FirebaseApp>
+      <FirebaseAuth></FirebaseAuth>
     </div>
   );
 }
