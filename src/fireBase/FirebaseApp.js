@@ -9,6 +9,10 @@ import {
   serverTimestamp,
   updateDoc,
   getDoc,
+  query,
+  limit,
+  orderBy,
+  where,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { useState } from "react";
@@ -88,6 +92,27 @@ const FirebaseApp = () => {
     });
     console.log("Update success");
   };
+  // Database Query
+  useEffect(() => {
+    //Firebase Queries
+    const coldRefQuery = collection(db, "posts");
+    const q = query(
+      coldRefQuery,
+      orderBy("author", "desc"),
+      where("author", "==", "fireBase"),
+      limit(7)
+    );
+    onSnapshot(q, (snapShot) => {
+      let postQuery = [];
+      snapShot?.docs.forEach((doc) => {
+        postQuery.push({
+          id: doc?.id,
+          ...doc?.data(),
+        });
+      });
+      console.log("postQuery", postQuery);
+    });
+  }, []);
   return (
     <div className="p-10">
       <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5">
