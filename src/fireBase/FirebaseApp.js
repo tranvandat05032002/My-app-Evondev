@@ -8,6 +8,7 @@ import {
   onSnapshot,
   serverTimestamp,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { useState } from "react";
@@ -45,6 +46,16 @@ const FirebaseApp = () => {
         });
       });
       setPosts(post);
+    });
+
+    const docRefSingle = doc(db, "posts", "Iwj5eEiCj6HTrSuVpg7B");
+    // getDoc haven't realtime
+    getDoc(docRefSingle).then((doc) => {
+      console.log(doc.id, doc.data());
+    });
+    // getDoc with realtime
+    onSnapshot(docRefSingle, (doc) => {
+      console.log("RealTime: ", doc.id, doc.data());
     });
   }, []);
 
