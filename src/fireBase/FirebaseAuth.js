@@ -5,8 +5,10 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth, db } from "./firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 
 const FirebaseAuth = () => {
   const auth = getAuth();
@@ -31,13 +33,25 @@ const FirebaseAuth = () => {
   };
   const handleCreateUser = async (e) => {
     e.preventDefault();
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password
-    );
-    console.log("handleCreateUser", user);
-    console.log("Create user success fully");
+    try {
+      const createDental = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      await updateProfile(auth.currentUser, {
+        displayName: "Tran Van Dat",
+      });
+      setUserInfo(values);
+      const userColRef = collection(db, "Users");
+      await addDoc(userColRef, {
+        id: createDental.user.uid,
+        email: values.email,
+        password: values.password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="p-10">
@@ -65,7 +79,7 @@ const FirebaseAuth = () => {
           </button>
         </form>
         <div className="flex items-center mt-10 gap-x-5">
-          <span>{userInfo.email}</span>
+          <span>{userInfo?.displayName}</span>
           <button
             className="p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
             onClick={handleSignOut}
