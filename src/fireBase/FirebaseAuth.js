@@ -11,6 +11,7 @@ import { auth, db } from "./firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 
 const FirebaseAuth = () => {
+  const [userInfo, setUserInfo] = React.useState("");
   const auth = getAuth();
   const [values, setValues] = React.useState({
     email: "",
@@ -24,7 +25,6 @@ const FirebaseAuth = () => {
   const handleSignOut = () => {
     signOut(auth);
   };
-  const [userInfo, setUserInfo] = React.useState("");
   const handleChangeValues = (e) => {
     setValues({
       ...values,
@@ -53,10 +53,56 @@ const FirebaseAuth = () => {
       console.log(error);
     }
   };
+
+  // Handle Login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const createDental = await signInWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    setUserInfo(createDental);
+  };
   return (
-    <div className="p-10">
-      <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5">
-        <form onSubmit={handleCreateUser}>
+    <React.Fragment>
+      <div className="p-10">
+        <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5">
+          <form onSubmit={handleCreateUser}>
+            <input
+              onChange={handleChangeValues}
+              type="text"
+              placeholder="Enter your email"
+              className="w-full p-3 mb-5 border border-gray-200 rounded outline-none focus:border-blue-200"
+              name="email"
+            />
+            <input
+              onChange={handleChangeValues}
+              type="text"
+              placeholder="Enter your password"
+              className="w-full p-3 mb-5 border border-gray-200 rounded outline-none focus:border-blue-200"
+              name="password"
+            />
+            <button
+              type="submit"
+              className="w-full p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
+            >
+              Register
+            </button>
+          </form>
+          <div className="flex items-center mt-10 gap-x-5">
+            <span>{userInfo.user?.displayName}</span>
+            <button
+              className="p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5 ">
+        <form onSubmit={handleLogin}>
           <input
             onChange={handleChangeValues}
             type="text"
@@ -73,22 +119,13 @@ const FirebaseAuth = () => {
           />
           <button
             type="submit"
-            className="w-full p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
+            className="w-full p-3 text-sm font-medium text-white bg-purple-400 rounded-lg"
           >
-            Register
+            Login
           </button>
         </form>
-        <div className="flex items-center mt-10 gap-x-5">
-          <span>{userInfo?.displayName}</span>
-          <button
-            className="p-3 text-sm font-medium text-white bg-blue-400 rounded-lg"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
-        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
